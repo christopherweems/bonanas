@@ -2,14 +2,14 @@
 //  12/30/20
 
 import SwiftUI
-
+import unstandard
 
 // MARK: - Platform specific modifiers
 
 public extension View {
-    func modifier<Result>(platform: Platform, _ mods: (Self) -> Result) -> AnyView where Result : View {
-        guard platform.contains(.current) else { return AnyView(erasing: self) }
-        return AnyView(erasing: mods(self))
+    func modifier<Result>(platform platforms: Platform..., modifications: (Self) -> Result) -> AnyView where Result : View {
+        guard platforms.union().contains(.current) else { return AnyView(erasing: self) }
+        return AnyView(erasing: modifications(self))
     }
     
 }
