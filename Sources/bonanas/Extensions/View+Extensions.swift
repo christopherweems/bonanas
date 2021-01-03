@@ -25,3 +25,16 @@ public extension View {
     }
     
 }
+
+
+// MARK: - On Appear Async
+
+public extension View {
+    func onAppearAsync(perform action: (() -> Void)? = nil) -> some View {
+        self.onAppear {
+            guard let action = action else { return }
+            DispatchQueue.main.async(execute: action)
+        }
+    }
+    
+}
