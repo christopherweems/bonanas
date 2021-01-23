@@ -16,7 +16,7 @@ let package = Package(
         
     ],
     dependencies: [
-        .package(url: "https://github.com/christopherweems/unstandard", .upToNextMajor(from: "0.0.10")),
+        .package(url: "https://github.com/christopherweems/unstandard.git", .upToNextMajor(from: "0.0.21")),
         
     ],
     targets: [

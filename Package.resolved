@@ -6,13 +6,13 @@
         "repositoryURL": "https://github.com/christopherweems/Resultto.git",
         "state": {
           "branch": null,
-          "revision": "9e7a5213162260abc57a13df72b2b6177fe3f892",
-          "version": "0.0.2"
+          "revision": "d58a74b9cbbd837e9b6da8d7571bfe67b0645fbd",
+          "version": "0.0.3"
         }
       },
       {
         "package": "swift-algorithms",
-        "repositoryURL": "https://github.com/apple/swift-algorithms",
+        "repositoryURL": "https://github.com/apple/swift-algorithms.git",
         "state": {
           "branch": null,
           "revision": "bb3bafeca0e164ece3403a9de646b7d38c07dd49",
@@ -39,11 +39,11 @@
       },
       {
         "package": "unstandard",
-        "repositoryURL": "https://github.com/christopherweems/unstandard",
+        "repositoryURL": "https://github.com/christopherweems/unstandard.git",
         "state": {
           "branch": null,
-          "revision": "81c783a52724a89a8fb4929ebb7fadd9a416eda8",
-          "version": "0.0.10"
+          "revision": "7864df0d4eadc2b09b23dd09a34b90166f3c1799",
+          "version": "0.0.21"
         }
       }
     ]
