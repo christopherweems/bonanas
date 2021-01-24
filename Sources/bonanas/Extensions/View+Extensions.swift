@@ -38,3 +38,19 @@ public extension View {
     }
     
 }
+
+
+// MARK: - Alert
+
+public extension View {
+    /// Presents an \`AlertProtocol\` Alert to the user.
+    ///
+    /// - Parameters:
+    ///   - isPresented: A binding to whether the alert should be shown.
+    ///   - content: An `_Alert` structure
+    func alert(isPresented: Binding<Bool>, content: () -> AlertProtocol) -> some View {
+        self.alert(isPresented: isPresented, content: { content().body })
+    }
+    
+}
+
