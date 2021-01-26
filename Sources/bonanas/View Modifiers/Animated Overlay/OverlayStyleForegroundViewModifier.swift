@@ -9,6 +9,7 @@ import SwiftUI
 
 internal struct OverlayStyleForegroundViewModifier: ViewModifier {
     let style: OverlayStyle?
+    var animation: Animation? = nil
     
     func body(content: Content) -> some View {
         let scale: CGFloat
@@ -19,6 +20,10 @@ internal struct OverlayStyleForegroundViewModifier: ViewModifier {
             scale = 1.2
             opacity = 0.0
             
+//        case .revealFromBehind:
+//            scale = .phiInverse
+//            opacity = 0.0
+            
         default:
             scale = 1.0
             opacity = 1.0
@@ -26,8 +31,9 @@ internal struct OverlayStyleForegroundViewModifier: ViewModifier {
         }
         
         return content
-            .scaleEffect(scale)
             .opacity(opacity)
+            .animation(animation?.speed(sqrt(2)) ?? .default)
+            .scaleEffect(scale)
     }
     
 }
@@ -36,6 +42,7 @@ extension OverlayStyleForegroundViewModifier {
     func asTransition() -> AnyTransition {
         AnyTransition.modifier(active: OverlayStyleForegroundViewModifier(style: style),
                                identity: OverlayStyleForegroundViewModifier(style: nil))
+            .animation(animation)
     }
     
 }
