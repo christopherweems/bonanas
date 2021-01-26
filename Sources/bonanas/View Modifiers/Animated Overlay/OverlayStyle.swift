@@ -10,5 +10,6 @@ public enum OverlayStyle {
     
     case blurredBackground
     case revealFromBehind
+    case sheet
     
 }

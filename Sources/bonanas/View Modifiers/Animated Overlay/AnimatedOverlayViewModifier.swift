@@ -24,8 +24,14 @@ internal struct AnimatedOverlayViewModifier<Item, OverlayContent>: ViewModifier 
                 .compositingGroup()
                 .apply(backgroundStyle: style, if: isPresentingOverlay)
                 .animation(transitionAnimation, value: isPresentingOverlay)
+                .sheet(item: sheetItem) { _ in
+                    overlayContent($item.nonNil())
+                        .onAppear { self.presentationMode.isPresented = true }
+                        .environment(\EnvironmentValues.__presentationMode, $presentationMode)
+                    
+                }
             
-            if isPresentingOverlay {
+            if isPresentingOverlay && style != .sheet {
                 overlayContent($item.nonNil())
                     .transition(OverlayStyleForegroundViewModifier(style: style, animation: transitionAnimation).asTransition())
                     .onAppear { self.presentationMode.isPresented = true }
@@ -45,7 +51,18 @@ private extension AnimatedOverlayViewModifier {
         item != nil
     }
     
+    var sheetItem: Binding<Item?> {
+        Binding {
+            style == .sheet ? item : nil
+        } set: {
+            item = $0
+        }
+    }
+    
 }
+
+
+// MARK: - `View.overlay(item:style:_:)`
 
 public extension View {
     func overlay<Item, Content>(item: Binding<Item?>, style: OverlayStyle = .default,
