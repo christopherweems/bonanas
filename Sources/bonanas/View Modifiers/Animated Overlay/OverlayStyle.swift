@@ -6,7 +6,9 @@
 //
 
 public enum OverlayStyle {
+    public static let `default` = Self.blurredBackground
+    
     case blurredBackground
-//        case revealBehind
+//    case revealFromBehind
     
 }

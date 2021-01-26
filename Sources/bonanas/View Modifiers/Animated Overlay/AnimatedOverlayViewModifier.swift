@@ -10,7 +10,7 @@ import SwiftUI
 internal struct AnimatedOverlayViewModifier<Item, OverlayContent>: ViewModifier where Item: Identifiable, OverlayContent : View {
     @State private var presentationMode = _PresentationMode(isPresented: false)
     
-    var style: OverlayStyle = .blurredBackground
+    var style: OverlayStyle = .default
     
     @Binding var item: Item?
     
@@ -27,7 +27,7 @@ internal struct AnimatedOverlayViewModifier<Item, OverlayContent>: ViewModifier 
             
             if isPresentingOverlay {
                 overlayContent($item.nonNil())
-                    .transition(OverlayStyleForegroundViewModifier(style: style).asTransition().animation(transitionAnimation))
+                    .transition(OverlayStyleForegroundViewModifier(style: style, animation: transitionAnimation).asTransition())
                     .onAppear { self.presentationMode.isPresented = true }
                 
             }
@@ -48,8 +48,9 @@ private extension AnimatedOverlayViewModifier {
 }
 
 public extension View {
-    func overlay<Item, Content>(item: Binding<Item?>, @ViewBuilder overlayContent: @escaping (Binding<Item>) -> Content) -> some View where Item : Identifiable, Content : View {
-        self.modifier(AnimatedOverlayViewModifier(item: item, overlayContent: overlayContent))
+    func overlay<Item, Content>(item: Binding<Item?>, style: OverlayStyle = .default,
+                                @ViewBuilder overlayContent: @escaping (Binding<Item>) -> Content) -> some View where Item : Identifiable, Content : View {
+        self.modifier(AnimatedOverlayViewModifier(style: style, item: item, overlayContent: overlayContent))
     }
     
 }
