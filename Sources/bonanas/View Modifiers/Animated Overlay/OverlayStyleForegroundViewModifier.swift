@@ -20,9 +20,9 @@ internal struct OverlayStyleForegroundViewModifier: ViewModifier {
             scale = 1.2
             opacity = 0.0
             
-//        case .revealFromBehind:
-//            scale = .phiInverse
-//            opacity = 0.0
+        case .revealFromBehind:
+            scale = .phiInverse
+            opacity = 0.0
             
         default:
             scale = 1.0

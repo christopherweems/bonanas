@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import unstandard
 
 internal struct OverlayStyleBackgroundViewModifier: ViewModifier {
     let style: OverlayStyle?
@@ -13,17 +14,26 @@ internal struct OverlayStyleBackgroundViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         let blurRadius: CGFloat
         let saturation: Double
+        let scale: CGFloat
         let opacity: Double
         
         switch style {
         case .blurredBackground:
             blurRadius = 18
             saturation = .phiInverse
+            scale = 1.0
             opacity = 0.5
+            
+        case .revealFromBehind:
+            blurRadius = 14
+            saturation = 0
+            scale = CGFloat(Double.pi ** 2)
+            opacity = 0
             
         default:
             blurRadius = 0
             saturation = 1
+            scale = 1
             opacity = 1
             
         }
@@ -31,6 +41,7 @@ internal struct OverlayStyleBackgroundViewModifier: ViewModifier {
         return content
             .blur(radius: blurRadius)
             .saturation(saturation)
+            .scaleEffect(scale)
             .opacity(opacity)
     }
     
