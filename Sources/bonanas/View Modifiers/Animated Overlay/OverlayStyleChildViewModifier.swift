@@ -1,5 +1,5 @@
 //
-//  OverlayStyleForegroundViewModifier.swift
+//  OverlayStyleChildViewModifier.swift
 //  
 //
 //  Created by Christopher Weems on 1/25/21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-internal struct OverlayStyleForegroundViewModifier: ViewModifier {
+internal struct OverlayStyleChildViewModifier: ViewModifier {
     let style: OverlayStyle?
     var animation: Animation? = nil
     
@@ -38,18 +38,18 @@ internal struct OverlayStyleForegroundViewModifier: ViewModifier {
     
 }
 
-extension OverlayStyleForegroundViewModifier {
+extension OverlayStyleChildViewModifier {
     func asTransition() -> AnyTransition {
-        AnyTransition.modifier(active: OverlayStyleForegroundViewModifier(style: style),
-                               identity: OverlayStyleForegroundViewModifier(style: nil))
+        AnyTransition.modifier(active: OverlayStyleChildViewModifier(style: style),
+                               identity: OverlayStyleChildViewModifier(style: nil))
             .animation(animation)
     }
     
 }
 
 extension View {
-    func apply(foregroundStyle: OverlayStyle, ifNot: Bool) -> some View {
-        self.modifier(OverlayStyleForegroundViewModifier(style: ifNot ? nil : foregroundStyle))
+    func apply(childStyle: OverlayStyle, ifNot: Bool) -> some View {
+        self.modifier(OverlayStyleChildViewModifier(style: ifNot ? nil : childStyle))
     }
     
 }

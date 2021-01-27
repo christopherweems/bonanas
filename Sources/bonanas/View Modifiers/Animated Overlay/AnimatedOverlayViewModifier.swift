@@ -26,7 +26,7 @@ internal struct AnimatedOverlayViewModifier<Item, OverlayContent>: ViewModifier 
         ZStack {
             content
                 .compositingGroup()
-                .apply(backgroundStyle: style, if: isPresentingOverlay)
+                .apply(rootStyle: style, if: isPresentingOverlay)
                 .animation(transitionAnimation, value: isPresentingOverlay)
                 .sheet(item: sheetItem, onDismiss: { presentationMode.dismiss() }) { _ in
                     overlayContent($item.nonNil())
@@ -37,7 +37,7 @@ internal struct AnimatedOverlayViewModifier<Item, OverlayContent>: ViewModifier 
             
             if isPresentingOverlay && style != .sheet {
                 overlayContent($item.nonNil())
-                    .transition(OverlayStyleForegroundViewModifier(style: style, animation: transitionAnimation).asTransition())
+                    .transition(OverlayStyleChildViewModifier(style: style, animation: transitionAnimation).asTransition())
                     .onAppear { self.presentationMode.isPresented = true }
                 
             }

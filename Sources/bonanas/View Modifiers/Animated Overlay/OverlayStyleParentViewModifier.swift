@@ -1,5 +1,5 @@
 //
-//  OverlayStyleBackgroundViewModifier.swift
+//  OverlayStyleParentViewModifier.swift
 //  
 //
 //  Created by Christopher Weems on 1/25/21.
@@ -8,7 +8,7 @@
 import SwiftUI
 import unstandard
 
-internal struct OverlayStyleBackgroundViewModifier: ViewModifier {
+internal struct OverlayStyleParentViewModifier: ViewModifier {
     let style: OverlayStyle?
     
     func body(content: Content) -> some View {
@@ -49,8 +49,8 @@ internal struct OverlayStyleBackgroundViewModifier: ViewModifier {
 
 
 internal extension View {
-    func apply(backgroundStyle style: OverlayStyle, if shouldApplyStyle: Bool) -> some View {
-        let modifier = OverlayStyleBackgroundViewModifier(style: shouldApplyStyle ? style : nil)
+    func apply(rootStyle style: OverlayStyle, if shouldApplyStyle: Bool) -> some View {
+        let modifier = OverlayStyleParentViewModifier(style: shouldApplyStyle ? style : nil)
         return self.modifier(modifier)
     }
     
