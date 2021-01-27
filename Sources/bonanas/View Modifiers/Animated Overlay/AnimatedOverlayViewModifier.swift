@@ -9,22 +9,26 @@ import SwiftUI
 
 internal struct AnimatedOverlayViewModifier<Item, OverlayContent>: ViewModifier where Item: Identifiable, OverlayContent : View {
     @State private var presentationMode = _PresentationMode(isPresented: false)
+    @State private var presentingStyle: OverlayStyle?
     
     var style: OverlayStyle = .default
     
     @Binding var item: Item?
     
+    var onDismiss: (() -> Void)? = nil
+    
     let overlayContent: (Binding<Item>) -> OverlayContent
     
     @ViewBuilder func body(content: Content) -> some View {
         let transitionAnimation = Animation.spring()
+        let style = presentingStyle ?? self.style
         
         ZStack {
             content
                 .compositingGroup()
                 .apply(backgroundStyle: style, if: isPresentingOverlay)
                 .animation(transitionAnimation, value: isPresentingOverlay)
-                .sheet(item: sheetItem) { _ in
+                .sheet(item: sheetItem, onDismiss: { presentationMode.dismiss() }) { _ in
                     overlayContent($item.nonNil())
                         .onAppear { self.presentationMode.isPresented = true }
                         .environment(\EnvironmentValues.__presentationMode, $presentationMode)
@@ -40,7 +44,17 @@ internal struct AnimatedOverlayViewModifier<Item, OverlayContent>: ViewModifier 
             
         }
         .environment(\EnvironmentValues.__presentationMode, $presentationMode)
-        .onAppear { presentationMode.dismissCallback = { item = nil } }
+        .onChange(of: presentationMode.isPresented) { isPresented in
+            presentingStyle = isPresented ? style : nil
+            
+        }
+        .onAppear {
+            presentationMode.dismissCallback = {
+                item = nil
+                onDismiss?()
+                
+            }
+        }
         
     }
     
@@ -65,9 +79,9 @@ private extension AnimatedOverlayViewModifier {
 // MARK: - `View.overlay(item:style:_:)`
 
 public extension View {
-    func overlay<Item, Content>(item: Binding<Item?>, style: OverlayStyle = .default,
+    func overlay<Item, Content>(item: Binding<Item?>, style: OverlayStyle = .default, onDismiss: (() -> Void)? = nil,
                                 @ViewBuilder overlayContent: @escaping (Binding<Item>) -> Content) -> some View where Item : Identifiable, Content : View {
-        self.modifier(AnimatedOverlayViewModifier(style: style, item: item, overlayContent: overlayContent))
+        self.modifier(AnimatedOverlayViewModifier(style: style, item: item, onDismiss: onDismiss, overlayContent: overlayContent))
     }
     
 }
