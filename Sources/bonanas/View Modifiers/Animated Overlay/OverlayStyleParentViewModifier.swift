@@ -9,9 +9,12 @@ import SwiftUI
 import unstandard
 
 internal struct OverlayStyleParentViewModifier: ViewModifier {
+    @Environment(\.colorScheme) var colorScheme
+    
     let style: OverlayStyle?
     
     func body(content: Content) -> some View {
+        var blendMode: BlendMode = .normal
         let blurRadius: CGFloat
         let saturation: Double
         let scale: CGFloat
@@ -25,6 +28,7 @@ internal struct OverlayStyleParentViewModifier: ViewModifier {
             opacity = 0.5
             
         case .revealFromBehind:
+            blendMode = colorScheme == .dark ? .hardLight : .normal
             blurRadius = 14
             saturation = 0
             scale = CGFloat(Double.pi ** 2)
@@ -41,6 +45,7 @@ internal struct OverlayStyleParentViewModifier: ViewModifier {
         return content
             .blur(radius: blurRadius)
             .saturation(saturation)
+            .blendMode(blendMode)
             .scaleEffect(scale)
             .opacity(opacity)
     }
