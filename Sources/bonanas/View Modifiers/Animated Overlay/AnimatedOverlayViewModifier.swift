@@ -67,7 +67,7 @@ private extension AnimatedOverlayViewModifier {
     
     var sheetItem: Binding<Item?> {
         Binding {
-            style == .sheet ? item : nil
+            (presentingStyle ?? style) == .sheet ? item : nil
         } set: {
             item = $0
         }
