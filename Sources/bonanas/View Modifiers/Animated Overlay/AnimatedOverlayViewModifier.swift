@@ -44,6 +44,10 @@ internal struct AnimatedOverlayViewModifier<Item, OverlayContent>: ViewModifier 
             
         }
         .environment(\EnvironmentValues.__presentationMode, $presentationMode)
+        .onChange(of: item == nil, perform: { isNil in
+            guard isNil else { return }
+            presentingStyle = nil
+        })
         .onChange(of: presentationMode.isPresented) { isPresented in
             presentingStyle = isPresented ? style : nil
             
