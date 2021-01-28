@@ -40,6 +40,16 @@ public extension View {
 }
 
 
+// MARK: - View Builder Overlay
+
+public extension View {
+    func overlay<Overlay>(@ViewBuilder _ overlay: () -> Overlay) -> some View where Overlay: View {
+        self.overlay(overlay())
+    }
+    
+}
+
+
 // MARK: - Alert
 
 public extension View {
