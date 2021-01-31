@@ -1,9 +1,5 @@
-//
 //  ScenePhaseChangeCallbackViewModifier.swift
-//  
-//
-//  Created by Christopher Weems on 1/25/21.
-//
+//  1/25/21
 
 import SwiftUI
 

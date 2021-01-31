@@ -1,9 +1,5 @@
-//
 //  RoundedRectangleButtonStyle.swift
-//  
-//
-//  Created by Christopher Weems on 1/29/21.
-//
+//  1/29/21
 
 import SwiftUI
 import unstandard

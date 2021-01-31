@@ -1,9 +1,5 @@
-//
 //  LayoutDirection+Extensions.swift
-//  
-//
-//  Created by Christopher Weems on 1/26/21.
-//
+//  1/26/21
 
 import SwiftUI
 
