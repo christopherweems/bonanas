@@ -64,3 +64,18 @@ public extension View {
     
 }
 
+
+// MARK: - `.navigationBarItems(leading:trailing:revreseOrder:)`
+
+public extension View {
+    @ViewBuilder func navigationBarItems<L, T>(leading: L, trailing: T, reverseOrder: Bool) -> some View where L : View, T : View {
+        if reverseOrder {
+            self.navigationBarItems(leading: trailing, trailing: leading)
+            
+        } else {
+            self.navigationBarItems(leading: leading, trailing: trailing)
+            
+        }
+    }
+    
+}
