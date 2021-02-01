@@ -21,6 +21,13 @@ internal struct AnimatedOverlayViewModifier<Item, OverlayContent>: ViewModifier 
         let style = presentingStyle ?? self.style
         
         ZStack {
+            if isPresentingOverlay && style != .sheet {
+                overlayContent($item.nonNil())
+                    .transition(OverlayStyleChildViewModifier(style: style, animation: transitionAnimation).asTransition())
+                    .onAppear { self.presentationMode.isPresented = true }
+                
+            }
+            
             content
                 .compositingGroup()
                 .apply(rootStyle: style, if: isPresentingOverlay)
@@ -31,13 +38,6 @@ internal struct AnimatedOverlayViewModifier<Item, OverlayContent>: ViewModifier 
                         .environment(\EnvironmentValues.__presentationMode, $presentationMode)
                     
                 }
-            
-            if isPresentingOverlay && style != .sheet {
-                overlayContent($item.nonNil())
-                    .transition(OverlayStyleChildViewModifier(style: style, animation: transitionAnimation).asTransition())
-                    .onAppear { self.presentationMode.isPresented = true }
-                
-            }
             
         }
         .environment(\EnvironmentValues.__presentationMode, $presentationMode)
