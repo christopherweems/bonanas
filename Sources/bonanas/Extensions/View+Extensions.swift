@@ -68,6 +68,11 @@ public extension View {
 // MARK: - `.navigationBarItems(leading:trailing:revreseOrder:)`
 
 public extension View {
+    #if os(iOS) || os(tvOS)
+    @available(iOS, introduced: 13.0, deprecated: 100000.0, message: "Use toolbar(_:) with navigationBarLeading or navigationBarTrailing placement")
+    @available(tvOS, introduced: 13.0, deprecated: 100000.0, message: "Use toolbar(_:) with navigationBarLeading or navigationBarTrailing placement")
+    @available(macOS, unavailable)
+    @available(watchOS, unavailable)
     @ViewBuilder func navigationBarItems<L, T>(leading: L, trailing: T, reverseOrder: Bool) -> some View where L : View, T : View {
         if reverseOrder {
             self.navigationBarItems(leading: trailing, trailing: leading)
@@ -77,5 +82,6 @@ public extension View {
             
         }
     }
+    #endif
     
 }
