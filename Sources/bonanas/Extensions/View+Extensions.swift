@@ -85,3 +85,17 @@ public extension View {
     #endif
     
 }
+
+
+// MARK: - Assign value on change
+
+public extension View {
+    func onChange<Root, Value>(of value: Value, assignTo keyPath: ReferenceWritableKeyPath<Root, Value>, on root: Root) -> some View where Value : Equatable {
+        func assign(value: Value) { root[keyPath: keyPath] = value }
+        
+        return self
+            .onAppear { assign(value: value) }
+            .onChange(of: value, perform: assign(value:))
+    }
+    
+}
