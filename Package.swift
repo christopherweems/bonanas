@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.4
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -16,7 +16,7 @@ let package = Package(
         
     ],
     dependencies: [
-        .package(url: "https://github.com/christopherweems/unstandard.git", .upToNextMajor(from: "0.0.21")),
+        .package(url: "https://github.com/christopherweems/unstandard.git", .upToNextMajor(from: "0.1.0")),
         
     ],
     targets: [
