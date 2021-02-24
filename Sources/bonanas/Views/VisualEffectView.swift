@@ -24,6 +24,11 @@ public struct VisualEffectView: UIViewRepresentable {
         
     }
     
+    public init(blurEffect style: UIBlurEffect.Style) {
+        self.effect = UIBlurEffect(style: style)
+        
+    }
+    
 }
 
 #endif
