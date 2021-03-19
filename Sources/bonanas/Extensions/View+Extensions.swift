@@ -24,6 +24,35 @@ public extension View {
                    alignment: alignment)
     }
     
+    func frame(size: CGSize, alignment: Alignment = .center) -> some View {
+        self.frame(width: size.width, height: size.height, alignment: alignment)
+    }
+    
+}
+
+
+// MARK: - Padding
+
+public extension View {
+    func padding(_ edges: Edge.Set, matching insets: EdgeInsets) -> some View {
+        self
+            .padding(.leading, edges.contains(.leading) ? insets.leading : 0)
+            .padding(.trailing, edges.contains(.trailing) ? insets.trailing : 0)
+            .padding(.top, edges.contains(.top) ? insets.top : 0)
+            .padding(.bottom, edges.contains(.bottom) ? insets.bottom : 0)
+        
+    }
+    
+}
+
+
+// MARK: - Transition
+
+public extension View {
+    func transition(_ transition: () -> AnyTransition) -> some View {
+        self.transition(transition())
+    }
+    
 }
 
 
