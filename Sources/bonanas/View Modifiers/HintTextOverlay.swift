@@ -9,7 +9,14 @@ fileprivate struct HintTextOverlay: ViewModifier {
     
     func body(content: Content) -> some View {
         ZStack(alignment: .bottom) {
+            #if !os(tvOS)
             content
+            
+            #else
+            content
+                .padding(.bottom, 60)
+            
+            #endif
             
             text
                 .font(.footnote.lowercaseSmallCaps())
