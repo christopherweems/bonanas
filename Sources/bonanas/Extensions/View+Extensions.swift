@@ -128,3 +128,15 @@ public extension View {
     }
     
 }
+
+
+// MARK: - `View.onAppearAndChange(of:perform:)`
+
+public extension View {
+    func onAppearAndChange<Value>(of value: Value, perform action: @escaping (Value) -> Void) -> some View where Value : Equatable {
+        self.onAppear(perform: { action(value) })
+            .onChange(of: value, perform: action)
+    }
+    
+}
+
