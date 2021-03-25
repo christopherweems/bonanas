@@ -2,6 +2,7 @@
 //  Created by Christopher Weems on 2/3/21
 
 import SwiftUI
+import Textual
 import unstandard
 
 fileprivate struct HintTextOverlay: ViewModifier {
@@ -63,6 +64,11 @@ public extension View {
     
     func hintText(_ hintText: String, help helpText: String, textCase: Text.Case? = .uppercase) -> some View {
         self.hintText(Text(hintText), help: Text(helpText), textCase: textCase)
+    }
+    
+    func hintText(textCase: Text.Case? = .uppercase,
+                  helpText: Text? = nil, @TextResult _ text: () -> Text) -> some View {
+        self.hintText(text(), help: helpText, textCase: textCase)
     }
     
 }
