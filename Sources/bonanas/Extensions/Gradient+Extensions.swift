@@ -5,11 +5,24 @@ import SwiftUI
 import unstandard
 
 extension Gradient {
-    public static func withStops(@ProtocolTypedArrayBuilder<Stop> stops: () -> [Stop]) -> Gradient {
+    public static func withStops(@ProtocolTypedArrayBuilder<Stop> _ stops: () -> [Stop]) -> Gradient {
         .init(stops: stops())
     }
     
 }
+
+public extension Gradient {
+    typealias OpacityStop = (opacity: Double, location: CGFloat)
+    
+    static func withOpacityStops(@ProtocolTypedArrayBuilder<OpacityStop> _ opacityStops: () -> [OpacityStop]) -> Gradient {
+        let stops: [Gradient.Stop] = opacityStops()
+            .map { .init(color: .black.opacity($0.opacity), location: $0.location) }
+        
+        return Gradient(stops: stops)
+    }
+    
+}
+
 
 extension Gradient {
     public func linear(along axis: Axis) -> LinearGradient {
