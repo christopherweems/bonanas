@@ -16,6 +16,7 @@ let package = Package(
         
     ],
     dependencies: [
+        .package(url: "https://github.com/christopherweems/Textual.git", .upToNextMajor(from: "0.0.4")),
         .package(url: "https://github.com/christopherweems/unstandard.git", .upToNextMajor(from: "0.1.0")),
         
     ],
@@ -23,6 +24,7 @@ let package = Package(
         .target(
             name: "bonanas",
             dependencies: [
+                .product(name: "Textual", package: "Textual"),
                 .product(name: "unstandard", package: "unstandard"),
                 
             ]),
