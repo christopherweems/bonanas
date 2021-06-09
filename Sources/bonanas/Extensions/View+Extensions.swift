@@ -7,6 +7,7 @@ import unstandard
 
 // MARK: - Platform specific modifiers
 
+@available(swift, deprecated: 5.5, message: "Use #if os(..) [SE-0308]")
 public extension View {
     func modifier<Result>(platform platforms: Platform..., modifications: (Self) -> Result) -> AnyView where Result : View {
         guard platforms.union().contains(.current) else { return AnyView(erasing: self) }
