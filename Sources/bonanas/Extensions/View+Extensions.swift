@@ -60,6 +60,7 @@ public extension View {
 // MARK: - On Appear Async
 
 public extension View {
+    @available(deprecated: iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 15.0, message: "Use View.task { }")
     func onAppearAsync(perform action: (() -> Void)? = nil) -> some View {
         self.onAppear {
             guard let action = action else { return }
